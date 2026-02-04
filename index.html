@@ -18,20 +18,31 @@
         <div class="main-section">
             <h1>Tasks for Today</h1>
             <div class="list-container">
-                <div class="list-item">check box + span + delete button</div>
+                <div class="list-item">
+                    <div>
+                        <input type="checkbox" id="task-1" name="task-1" value="task-1" checked />
+                        <label for="task-1">E.g. Take bins out.</label>
+                        <button type="button" class="delete-task">Delete</button>
+                    </div>
+                </div>
                 <div class="list-item"></div>
             </div>
         </div>
         <div class="side-section">
             <h1>Add a Task</h1>
             <div class="">
-                Input text area + submit button
+                <label for="task-name">Task :</label>
+                <input type="text" id="task-name" name="task-name" required minlength="2" maxlength="100" size="50"
+                    placeholder="e.g. Food shop" />
+                <input type="submit" value="Add Task" />
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer></footer>
+    <footer style="background-color: lightgrey;">
+        <p>Footer content</p>
+    </footer>
     <!-- Scripts -->
     <script></script>
 </body>
