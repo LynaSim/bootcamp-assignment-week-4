@@ -23,3 +23,15 @@ addButton.addEventListener('click', function (event) {
 
 });
 
+// Delete task button
+var mainContentEl = document.querySelector(".list-container");
+var deleteButton = document.querySelectorAll(".delete-button");
+console.log(deleteButton);
+
+deleteButton.addEventListener('click', function (event) {
+    var nodesToDelete = deleteButton.parentNode;
+    console.log(nodesToDelete);
+});
+
+
+
