@@ -3,7 +3,7 @@ var taskInput = document.getElementById('task-name');
 console.log(taskInput);
 
 addButton.addEventListener('click', function (event) {
-
+    //Creates a new task on every click
     var newTask = taskInput.value;
     var newDivEl = document.createElement("div");
     newDivEl.className = "list-item";
@@ -15,23 +15,34 @@ addButton.addEventListener('click', function (event) {
                     <div>
                         <input type="checkbox" id="task" name="task" value="task" unchecked />
                         <label for="task">${newTask}</label>
-                        <button type="button" class="delete-task">Delete</button>
+                        <button type="button" class="delete-button">Delete</button>
                     </div>
                 </div>`;
     newDivEl.outerHTML = someHTML;
     taskInput.value = "";
 
+    // Adds an eventlistener to each delete-button created
+    // var mainContentEl = document.querySelector(".list-container");
+    var deleteButtons = document.querySelectorAll(".delete-button");
+    console.log(deleteButtons);
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function (event) {
+            var nodeToDelete = button.parentNode;
+            console.log(nodeToDelete);
+            nodeToDelete.remove();
+        });
+    });
+
 });
 
-// Delete task button
-var mainContentEl = document.querySelector(".list-container");
-var deleteButton = document.querySelectorAll(".delete-button");
-console.log(deleteButton);
 
-deleteButton.addEventListener('click', function (event) {
-    var nodesToDelete = deleteButton.parentNode;
-    console.log(nodesToDelete);
-});
+
+
+
+// deleteButton.addEventListener('click', function (event) {
+//     var nodesToDelete = deleteButton.parentNode;
+//     console.log(nodesToDelete);
+// });
 
 
 
