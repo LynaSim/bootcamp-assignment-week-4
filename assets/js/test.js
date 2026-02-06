@@ -16,11 +16,11 @@ function validateInput() {
         if (tasks.includes(newTask)===false) {
             AddtoArray();
         } else {
-            alert("You already have that one down.")
+            alert("That one is already in :)")
         };
         
     } else {
-        alert("Please type something.");
+        alert("Please add a task.");
     };
 };
 
@@ -57,17 +57,18 @@ function createNewDivEl() {
             </div>
         </div>`;
     newDivEl.outerHTML = someHTML;
-    taskInput.value = ""; 
+    taskInput.value = "";
 };
 
 
 // Event listeners
 addButton.addEventListener('click', validateInput);
 
-
-
-// addButton.addEventListener('click', function (event) { })
-// taskInput.addEventListener('keydown', AddtoArray);
+taskInput.addEventListener('keydown', function (event) { 
+    if (event.key === 'Enter'){
+        validateInput();
+    };
+})
 
 
 
