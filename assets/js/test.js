@@ -30,7 +30,6 @@ function AddtoArray() {
     var newTask = taskInput.value.trim();
     tasks.push(newTask);
     createNewDivEl();
-
 }
 
 // Function to generate new <div> for each value in the array
@@ -49,14 +48,26 @@ function createNewDivEl() {
             </div>
         </div>`;
         mainContentEl.appendChild(newDivEl);
-        var deleteButton = newDivEl.querySelector("button");
-        deleteButton.addEventListener('click', function(event) {
-            console.log("eventlistener successfully added");
-        });
-        
     };
+
     taskInput.value = "";
-};
+
+    // Adds an eventlistener to each delete-button created
+    var deleteButtons = document.querySelectorAll(".delete-button");
+    
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            var labelToDelete = button.previousElementSibling.textContent;
+            console.log(labelToDelete);
+            tasks = tasks.filter((item) => item !== labelToDelete);
+            console.log(tasks);
+            var nodesToDelete = button.parentNode;
+            nodesToDelete.remove();
+        });
+    });
+
+}
+
 
 
 // Event listeners
@@ -65,6 +76,6 @@ addButton.addEventListener('click', validateInput);
 taskInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         validateInput();
-    };
+    }
 })
 
