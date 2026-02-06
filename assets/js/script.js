@@ -51,7 +51,7 @@ taskInput.addEventListener('keydown', function (event) {
 })
 
 
-
+//Handling event of clicking the "add" button
 addButton.addEventListener('click', function (event) {
     //Creates a new task on every click
     var newTask = taskInput.value;
@@ -91,9 +91,3 @@ addButton.addEventListener('click', function (event) {
     };
 
 });
-
-
-
-
-
-
