@@ -7,10 +7,28 @@ var newTask = taskInput.value;
 console.log(newTask);
 var mainContentEl = document.querySelector(".list-container");
 
+//Checks, validation
+function validateInput() {
+    var newTask = taskInput.value.trim();//removes "spaces"
+    console.log(newTask);
+
+    if (newTask) {
+        if (tasks.includes(newTask)===false) {
+            AddtoArray();
+        } else {
+            alert("You already have that one down.")
+        };
+        
+    } else {
+        alert("Please type something.");
+    };
+};
+
+
 
 // Function grabs input value and add to array
 function AddtoArray() {
-    var newTask = taskInput.value;
+    var newTask = taskInput.value.trim();
     tasks.push(newTask);
     console.log(tasks);
     console.log(newTask);
@@ -43,11 +61,13 @@ function createNewDivEl() {
 };
 
 
-
 // Event listeners
-addButton.addEventListener('click', AddtoArray);
+addButton.addEventListener('click', validateInput);
+
+
+
 // addButton.addEventListener('click', function (event) { })
-// taskInput.addEventListener('keydown', function (event) { })
+// taskInput.addEventListener('keydown', AddtoArray);
 
 
 
