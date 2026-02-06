@@ -1,10 +1,7 @@
 var tasks = [];
-// console.log(tasks);
 var addButton = document.getElementById('add-button');
 var taskInput = document.getElementById('task-name');
-// console.log(taskInput);
 var newTask = taskInput.value;
-// console.log(newTask);
 var mainContentEl = document.querySelector(".list-container");
 
 //Checks, validation
@@ -21,7 +18,7 @@ function validateInput() {
     } else {
         alert("Please add a task.");
     };
-};
+}
 
 
 
@@ -35,7 +32,7 @@ function AddtoArray() {
 // Function to generate new <div> for each value in the array
 function createNewDivEl() {
     var mainContentEl = document.querySelector(".list-container");
-    mainContentEl.innerHTML = "";
+    mainContentEl.innerHTML = "";//avoids duplicates
 
     for (var i = 0; i < tasks.length; i++) {
         var newLabel = tasks[i];
@@ -48,9 +45,9 @@ function createNewDivEl() {
             </div>
         </div>`;
         mainContentEl.appendChild(newDivEl);
-    };
+    }
 
-    taskInput.value = "";
+    taskInput.value = "";// clears the input field
 
     // Adds an eventlistener to each delete-button created
     var deleteButtons = document.querySelectorAll(".delete-button");
@@ -68,8 +65,6 @@ function createNewDivEl() {
 
 }
 
-
-
 // Event listeners
 addButton.addEventListener('click', validateInput);
 
@@ -77,5 +72,5 @@ taskInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         validateInput();
     }
-})
+});
 
