@@ -1,24 +1,23 @@
 var tasks = [];
-console.log(tasks);
+// console.log(tasks);
 var addButton = document.getElementById('add-button');
 var taskInput = document.getElementById('task-name');
-console.log(taskInput);
+// console.log(taskInput);
 var newTask = taskInput.value;
-console.log(newTask);
+// console.log(newTask);
 var mainContentEl = document.querySelector(".list-container");
 
 //Checks, validation
 function validateInput() {
     var newTask = taskInput.value.trim();//removes "spaces"
-    console.log(newTask);
 
     if (newTask) {
-        if (tasks.includes(newTask)===false) {
+        if (tasks.includes(newTask) === false) {
             AddtoArray();
         } else {
             alert("That one is already in :)")
         };
-        
+
     } else {
         alert("Please add a task.");
     };
@@ -30,33 +29,32 @@ function validateInput() {
 function AddtoArray() {
     var newTask = taskInput.value.trim();
     tasks.push(newTask);
-    console.log(tasks);
-    console.log(newTask);
     createNewDivEl();
 
 }
 
 // Function to generate new <div> for each value in the array
 function createNewDivEl() {
+    var mainContentEl = document.querySelector(".list-container");
+    mainContentEl.innerHTML = "";
+
     for (var i = 0; i < tasks.length; i++) {
         var newLabel = tasks[i];
-        console.log(newLabel);
-
         var newDivEl = document.createElement("div");
-        newDivEl.className = "list-item";
-        newDivEl.textContent = newLabel;
-        console.log(newDivEl);
-    };
-
-    mainContentEl.appendChild(newDivEl);
-    var someHTML = `<div class="list-item">
+        newDivEl.innerHTML = `<div class="list-item">
             <div>
                 <input type="checkbox" name="task" value="task" unchecked />
                 <label for="task">${newLabel}</label>
                 <button type="button" class="delete-button">Delete</button>
             </div>
         </div>`;
-    newDivEl.outerHTML = someHTML;
+        mainContentEl.appendChild(newDivEl);
+        var deleteButton = newDivEl.querySelector("button");
+        deleteButton.addEventListener('click', function(event) {
+            console.log("eventlistener successfully added");
+        });
+        
+    };
     taskInput.value = "";
 };
 
@@ -64,14 +62,9 @@ function createNewDivEl() {
 // Event listeners
 addButton.addEventListener('click', validateInput);
 
-taskInput.addEventListener('keydown', function (event) { 
-    if (event.key === 'Enter'){
+taskInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
         validateInput();
     };
 })
-
-
-
-
-
 
