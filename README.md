@@ -19,5 +19,5 @@ https://lynasim.github.io/bootcamp-assignment-week-4/
 
 Ressources:
 Bootstrap - https://getbootstrap.com/
-Confetti browser animation from https://confettijs.org/ or https://github.com/swetzel/confetti.js
+Confetti browser animation from https://confettijs.org/ or https://github.com/swetzel/confetti.js (Copyright (c) 2025, Sebastian Wetzel)
 
