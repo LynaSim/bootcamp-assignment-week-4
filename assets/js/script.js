@@ -129,7 +129,7 @@ function activateCheckboxes() {
                 checkbox.nextElementSibling.style.backgroundColor = "#258292";
                 checkbox.nextElementSibling.style.color = "white";
                 confetti({
-                    position: { x: 100, y: 100 },// Origin position
+                    position: { x: 200, y: 200 },// Origin position
                     count: 200,			// Number of particles
                     size: 1,			// Size of the particles
                     velocity: 200,		// Initial particle velocity
