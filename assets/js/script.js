@@ -1,93 +1,161 @@
+var tasks = [];
 var addButton = document.getElementById('add-button');
 var taskInput = document.getElementById('task-name');
-console.log(taskInput);
+var newTask = taskInput.value;
+var mainContentEl = document.querySelector(".list-container");
 
-//Handling event of press enter in input field
-taskInput.addEventListener('keydown', function (event) {
-    console.log(event);
+//Checks, validation
+function validateInput() {
+    var newTask = taskInput.value.trim();//removes "spaces"
 
-    if (event.key === 'Enter') {
-
-        //Creates a new task on pressing 'enter' key
-        var newTask = taskInput.value;
-
-        //Checks the value is not empty
-        if (newTask) {
-
-            var newDivEl = document.createElement("div");
-            newDivEl.className = "list-item";
-            newDivEl.textContent = newTask;
-            console.log(newDivEl);
-            var mainContentEl = document.querySelector(".list-container");
-            mainContentEl.appendChild(newDivEl);
-            var someHTML = `<div class="list-item">
-                    <div>
-                        <input type="checkbox" name="task" value="task" unchecked />
-                        <label for="task">${newTask}</label>
-                        <button type="button" class="delete-button">Delete</button>
-                    </div>
-                </div>`;
-            newDivEl.outerHTML = someHTML;
-            taskInput.value = "";
-
-            // Adds an eventlistener to each delete-button created
-            var deleteButtons = document.querySelectorAll(".delete-button");
-            console.log(deleteButtons);
-            deleteButtons.forEach(function (button) {
-                button.addEventListener('click', function (event) {
-                    var nodesToDelete = button.parentNode;
-                    console.log(nodesToDelete);
-                    nodesToDelete.remove();
-                });
-            });
-
+    if (newTask) {
+        if (tasks.includes(newTask) === false) {
+            AddtoArray();
         } else {
-            alert("Please type something.");
+            alert("That one is already on :)")
         };
 
+    } else {
+        alert("Please add a task.");
+    };
+}
 
+// Function grabs input value and add to array
+function AddtoArray() {
+    var newTask = taskInput.value.trim();
+    tasks.push(newTask);
+    createNewDivEl();
+}
+
+// Function to generate new <div> for each value in the array
+function createNewDivEl() {
+    var mainContentEl = document.querySelector(".list-container");
+    mainContentEl.innerHTML = "";//avoids duplicates
+
+    for (var i = 0; i < tasks.length; i++) {
+        var newLabel = tasks[i];
+        var newDivEl = document.createElement("div");
+        newDivEl.innerHTML = `<div class="list-item">
+            <div>
+                <input type="checkbox" name="task" value="task" unchecked />
+                <label for="task">${newLabel}</label>
+                <button type="button" class="delete-button">Delete</button>
+                <button type=button class="edit-button">Edit</button>
+            </div>
+        </div>`;
+        mainContentEl.appendChild(newDivEl);
     }
 
-})
+    taskInput.value = "";// clears the input field
 
+    // Adds an eventlistener to each delete-button created
+    var deleteButtons = document.querySelectorAll(".delete-button");
 
-//Handling event of clicking the "add" button
-addButton.addEventListener('click', function (event) {
-    //Creates a new task on every click
-    var newTask = taskInput.value;
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            var labelToDelete = button.previousElementSibling.textContent;
+            console.log(labelToDelete);
+            tasks = tasks.filter((item) => item !== labelToDelete);
+            console.log(tasks);
+            var nodesToDelete = button.parentNode;
+            nodesToDelete.remove();
+        });
+    });
 
-    //Checks the value is not empty
-    if (newTask) {
+    // Adds an eventlistener to each edit-button created
+    var editButtons = document.querySelectorAll(".edit-button");
 
-        var newDivEl = document.createElement("div");
-        newDivEl.className = "list-item";
-        newDivEl.textContent = newTask;
-        console.log(newDivEl);
-        var mainContentEl = document.querySelector(".list-container");
-        mainContentEl.appendChild(newDivEl);
-        var someHTML = `<div class="list-item">
-                    <div>
-                        <input type="checkbox" name="task" value="task" unchecked />
-                        <label for="task">${newTask}</label>
-                        <button type="button" class="delete-button">Delete</button>
-                    </div>
-                </div>`;
-        newDivEl.outerHTML = someHTML;
-        taskInput.value = "";
+    editButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            var parentDiv = button.parentNode;
+            var labelToEdit = parentDiv.children[1];
+            labelToEdit = labelToEdit.textContent;
+            //Edit mode 
+            mainContentEl.innerHTML = `<input type="text" id="edit-field" name="" required minlength="2" maxlength="100" size="30" value="${labelToEdit}" /><button id="save-button" type="submit">Save</button>`;
+            tasks = tasks.filter((item) => item !== labelToEdit);
+            var saveButton = document.getElementById("save-button");
+            console.log(saveButton);
+            var newTask = document.getElementById("edit-field");
+            newTask = newTask.value;
+            // console.log(newTask);
 
-        // Adds an eventlistener to each delete-button created
-        var deleteButtons = document.querySelectorAll(".delete-button");
-        console.log(deleteButtons);
-        deleteButtons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var nodesToDelete = button.parentNode;
-                console.log(nodesToDelete);
-                nodesToDelete.remove();
+            //Event listener for Save button
+            saveButton.addEventListener('click', function (event) {
+                validateEditInput();
             });
+
+            //Event listener for Enter key
+            var newTask = document.getElementById("edit-field");
+            newTask.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    console.log("Enter key pressed");
+                    validateEditInput();
+                }
+            });
+
+            function validateEditInput() {
+                var newTask = document.getElementById("edit-field");
+
+                newTask = newTask.value;
+                // console.log(newTask);
+                if (newTask) {
+                    if (tasks.includes(newTask) === false) {
+                        tasks.push(newTask);
+                        createNewDivEl();
+                        activateCheckboxes();
+                    } else {
+                        alert("That one is already on :)")
+                    };
+
+                } else {
+                    alert("Please add a task.");
+                };
+            }
+
         });
 
-    } else {
-        alert("Please type something.");
-    };
+    });
 
+}
+
+function activateCheckboxes() {
+    var allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    console.log(allCheckboxes);
+    allCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function (event) {
+            if (checkbox.checked) {
+                console.log("Checked");
+                checkbox.nextElementSibling.style.textDecoration = "line-through";
+                checkbox.nextElementSibling.style.backgroundColor = "#258292";
+                checkbox.nextElementSibling.style.color = "white";
+                confetti({
+                    position: { x: 0, y: 0 },	// Origin position
+                    count: 500,			// Number of particles
+                    size: 1,			// Size of the particles
+                    velocity: 200,		// Initial particle velocity
+                    fade: false			// Particles fall off the screen, or fade out
+                });
+            } else {
+                console.log("Unchecked");
+                checkbox.nextElementSibling.style.textDecoration = "none";
+                checkbox.nextElementSibling.style.backgroundColor = "transparent";
+                checkbox.nextElementSibling.style.color = "black";
+
+            }
+        })
+    })
+}
+
+// Event listeners
+addButton.addEventListener('click', function (event) {
+    validateInput();
+    activateCheckboxes();
 });
+
+taskInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        validateInput();
+        activateCheckboxes();
+    }
+});
+
