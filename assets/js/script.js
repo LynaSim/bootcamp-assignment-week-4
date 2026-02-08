@@ -39,8 +39,8 @@ function createNewDivEl() {
             <div>
                 <input type="checkbox" name="task" value="task" unchecked />
                 <label for="task">${newLabel}</label>
-                <button type="button" class="delete-button">Delete</button>
-                <button type=button class="edit-button">Edit</button>
+                <button type="button" class="delete-button btn btn-outline-warning btn-sm">Delete</button>
+                <button type=button class="edit-button btn btn-outline-secondary btn-sm">Edit</button>
             </div>
         </div>`;
         mainContentEl.appendChild(newDivEl);
@@ -71,7 +71,7 @@ function createNewDivEl() {
             var labelToEdit = parentDiv.children[1];
             labelToEdit = labelToEdit.textContent;
             //Edit mode 
-            mainContentEl.innerHTML = `<input type="text" id="edit-field" name="" required minlength="2" maxlength="100" size="30" value="${labelToEdit}" /><button id="save-button" type="submit">Save</button>`;
+            mainContentEl.innerHTML = `<input type="text" id="edit-field" name="" required minlength="2" maxlength="100" value="${labelToEdit}" /><button class="btn btn-outline-success btn-sm" id="save-button" type="submit">Save</button>`;
             tasks = tasks.filter((item) => item !== labelToEdit);
             var saveButton = document.getElementById("save-button");
             console.log(saveButton);
@@ -129,8 +129,8 @@ function activateCheckboxes() {
                 checkbox.nextElementSibling.style.backgroundColor = "#258292";
                 checkbox.nextElementSibling.style.color = "white";
                 confetti({
-                    position: { x: 0, y: 0 },	// Origin position
-                    count: 500,			// Number of particles
+                    position: { x: 100, y: 100 },// Origin position
+                    count: 200,			// Number of particles
                     size: 1,			// Size of the particles
                     velocity: 200,		// Initial particle velocity
                     fade: false			// Particles fall off the screen, or fade out

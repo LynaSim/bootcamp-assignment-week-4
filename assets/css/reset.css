@@ -1,4 +1,8 @@
 /* CSS reset file */
+* {
+    box-sizing: border-box;
+}
+
 html,
 body,
 div,

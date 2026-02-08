@@ -1,0 +1,21 @@
+.text-bg-light {
+    /* background-color: #E0F4F1 !important; */
+    /* background-color: #FEE8D9 !important; */
+    /* color: #1A5B66 !important; */
+    background-color: #FFF8E8 !important;
+    box-shadow: 4px 2px 10px grey;
+}
+
+button {
+    margin-top: 5px;
+    margin-left: 5px;
+    box-shadow: 4px 2px 8px grey;
+}
+
+h1,
+h2 {
+    /* text-align: center; */
+    color: #454545;
+    border-bottom: 1px solid #1A5B66;
+    padding-bottom: 3px;
+}
