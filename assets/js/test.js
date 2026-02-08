@@ -12,15 +12,13 @@ function validateInput() {
         if (tasks.includes(newTask) === false) {
             AddtoArray();
         } else {
-            alert("That one is already in :)")
+            alert("That one is already on :)")
         };
 
     } else {
         alert("Please add a task.");
     };
 }
-
-
 
 // Function grabs input value and add to array
 function AddtoArray() {
@@ -69,42 +67,50 @@ function createNewDivEl() {
 
     editButtons.forEach(function (button) {
         button.addEventListener('click', function (event) {
-            console.log("Hello");
             var parentDiv = button.parentNode;
-            console.log(parentDiv);
             var labelToEdit = parentDiv.children[1];
-            console.log(labelToEdit);
             labelToEdit = labelToEdit.textContent;
-            console.log(labelToEdit);
-            parentDiv.innerHTML = `<input type="text" id="edit-field" name="" required minlength="2" maxlength="100" size="30" value="${labelToEdit}" /><button id="save-button" type="submit">Save</button>`;
-            console.log(parentDiv);
+            //Edit mode 
+            mainContentEl.innerHTML = `<input type="text" id="edit-field" name="" required minlength="2" maxlength="100" size="30" value="${labelToEdit}" /><button id="save-button" type="submit">Save</button>`;
             tasks = tasks.filter((item) => item !== labelToEdit);
-            console.log(tasks);
-
             var saveButton = document.getElementById("save-button");
             console.log(saveButton);
             var newTask = document.getElementById("edit-field");
+            newTask = newTask.value;
+            // console.log(newTask);
 
             //Event listener for Save button
             saveButton.addEventListener('click', function (event) {
+                validateEditInput();
+            });
+
+            //Event listener for Enter key
+            var newTask = document.getElementById("edit-field");
+            newTask.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    console.log("Enter key pressed");
+                    validateEditInput();
+                }
+            });
+
+            function validateEditInput() {
                 var newTask = document.getElementById("edit-field");
 
                 newTask = newTask.value;
-                console.log(newTask);
+                // console.log(newTask);
                 if (newTask) {
                     if (tasks.includes(newTask) === false) {
                         tasks.push(newTask);
                         createNewDivEl();
                         activateCheckboxes();
                     } else {
-                        alert("That one is already in :)")
+                        alert("That one is already on :)")
                     };
 
                 } else {
                     alert("Please add a task.");
                 };
-
-            });
+            }
 
         });
 
@@ -115,6 +121,29 @@ function createNewDivEl() {
 function activateCheckboxes() {
     var allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
     console.log(allCheckboxes);
+    allCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function (event) {
+            if (checkbox.checked) {
+                console.log("Checked");
+                checkbox.nextElementSibling.style.textDecoration = "line-through";
+                checkbox.nextElementSibling.style.backgroundColor = "#258292";
+                checkbox.nextElementSibling.style.color = "white";
+                confetti({
+                    position: { x: 0, y: 0 },	// Origin position
+                    count: 500,			// Number of particles
+                    size: 1,			// Size of the particles
+                    velocity: 200,		// Initial particle velocity
+                    fade: false			// Particles fall off the screen, or fade out
+                });
+            } else {
+                console.log("Unchecked");
+                checkbox.nextElementSibling.style.textDecoration = "none";
+                checkbox.nextElementSibling.style.backgroundColor = "transparent";
+                checkbox.nextElementSibling.style.color = "black";
+
+            }
+        })
+    })
 }
 
 // Event listeners
